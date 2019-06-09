@@ -61,6 +61,7 @@ public class PlayScreen implements Screen {
     Texture backgroundw;
     Texture blockImage1;
     Texture blocksW;
+    Texture shrek;
 
     //constructor
     public PlayScreen(final BitBounce game) {
@@ -96,6 +97,7 @@ public class PlayScreen implements Screen {
         dounter = 0;
         backgroundw = new Texture(Gdx.files.internal("art (2).png"));
         blockImage1 = new Texture(Gdx.files.internal("art (1).png"));
+        shrek = new Texture(Gdx.files.internal("shrek.png"));
 
         xvel1 = -2.5;
         readyToStart = true;
@@ -201,7 +203,7 @@ public class PlayScreen implements Screen {
                     }
 
                 }
-                if (Bounter % 2 == 1) {
+                if (Bounter % 3 == 1) {
                     if (!password1.awesomeLevel) {
                         sprites.texture = marioImage;
                         //  bgmusic1 = Gdx.audio.newMusic(Gdx.files.internal("8bitmusic.mp3"));
@@ -209,12 +211,20 @@ public class PlayScreen implements Screen {
                         sprites.height = 227;
                     }
                 }
-                if (Bounter % 2 == 0) {
+                if (Bounter % 3 == 0) {
                     if (!password1.awesomeLevel) {
                         //if (Bounter % 2 == 0) {
                         sprites.texture = kaoopa;
                         sprites.width = 170;
+                        sprites.height = 200;
                         //}
+                    }
+                }
+                if (Bounter %3 == 2){
+                    if (!password1.awesomeLevel){
+                        sprites.texture = shrek;
+                        sprites.width = 160;
+                        sprites.height = 225;
                     }
                 }
                 if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
@@ -387,6 +397,19 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
+        game.batch.dispose();
+        blueImage1.dispose();
+        backgroundw.dispose();
+        marioImage.dispose();
+        sprite2Image.dispose();
+        kaoopa.dispose();
+        blocksW.dispose();
+        blockImage.dispose();
+        deathTextImage.dispose();
+        deathImage.dispose();
+        pause1.pauseScreen.dispose();
+        pause1.pauseText.dispose();
+        shrek.dispose();
 
     }
 
