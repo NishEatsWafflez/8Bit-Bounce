@@ -99,7 +99,7 @@ public class MainMenuScreen implements Screen{
         if (hud.settings) {
             game.batch.draw(close, 600, 265, 150, 35);
             game.batch.draw(red, 300, 325, 400, 400);
-            if (screen1) {
+            if (pageNumber == 1) {
                 game.batch.draw(notBack,250, 500, 30, 50);
                 game.batch.draw(forwardArrow, 720, 500, 30, 50);
                 if (cloudsOn) {
@@ -135,16 +135,14 @@ public class MainMenuScreen implements Screen{
                 }
                 if (Gdx.input.justTouched()) {
                     if ((BitBounce.V_HEIGHT - Gdx.input.getY()) > 500 && (BitBounce.V_HEIGHT - Gdx.input.getY()) < 550 && Gdx.input.getX() < 770 && Gdx.input.getX() > 720) {
-                        screen1 = false;
-                        screen2 = true;
-                        screen3 = false;
+                        pageNumber = 2;
                     }
                 }
             }
 
 
 
-            if (screen2){
+            if (pageNumber == 2){
                 game.batch.draw(notForward, 720, 500, 30, 50 );
                 game.batch.draw(backwardArrow, 250, 500, 30, 50);
                 if (medium){
@@ -181,9 +179,7 @@ public class MainMenuScreen implements Screen{
                 }
                 if (Gdx.input.justTouched()) {
                     if ((BitBounce.V_HEIGHT - Gdx.input.getY()) > 500 && (BitBounce.V_HEIGHT - Gdx.input.getY()) < 550 && Gdx.input.getX() < 300 && Gdx.input.getX() > 250) {
-                        screen1 = true;
-                        screen2 = false;
-                        screen3 = false;
+                        pageNumber = 1;
                     }
                 }
             }
@@ -324,6 +320,8 @@ public class MainMenuScreen implements Screen{
         notBack.dispose();
         forwardArrow.dispose();
         backwardArrow.dispose();
+        hud.stage.dispose();
+        setHUD.stage.dispose();
 
     }
 }

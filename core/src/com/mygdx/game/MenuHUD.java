@@ -78,4 +78,7 @@ public class MenuHUD {
         }
 
     }
+    public void dispose(){
+
+    }
 }

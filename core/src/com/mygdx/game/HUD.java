@@ -83,5 +83,8 @@ public class HUD {
     public void dispose(){
         stage.dispose();
         font1.dispose();
+        closeStage.dispose();
+        settingStage.dispose();
+
     }
 }

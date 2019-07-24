@@ -731,6 +731,15 @@ public class PlayScreen implements Screen {
         pause1.pauseText.dispose();
         shrek.dispose();
         forestbg.dispose();
+        peppa.dispose();
+        rayman.dispose();
+        Banjo.dispose();
+        hud.settingStage.dispose();
+        hud.closeStage.dispose();
+        hud.stage.dispose();
+        menuhud.stage.dispose();
+
+
 
     }
 
