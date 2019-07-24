@@ -3,7 +3,7 @@ An Endless Jumper, Enter the right code for a hidden feature, other hidden chara
 
 This is an Endless Jumping Game with an 8bit theme. If you enter the right code at the beginning, you can access a hidden level with some special designs
 
-v 1.0.2: Added Dispose Commands, Cleaned Up Page Selection
+v 1.0.2: Added Dispose Commands (Being Dumb again), Cleaned Up Page Selection
 
 v 1.0.1: Added 3 new hidden characters, 
 
