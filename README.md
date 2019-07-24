@@ -13,4 +13,4 @@ v 0.0.1: Initial Commit
 
 DOWNLOAD LINK (v0.2):
 
-https://www.dropbox.com/s/vjegh3rqt0umx7y/8-BitBouncev1.1.jar?dl=0
+https://www.dropbox.com/s/ydptp5f9ognz6le/8-BitBouncev1.0.1.jar?dl=0
