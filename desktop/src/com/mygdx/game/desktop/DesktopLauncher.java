@@ -10,5 +10,7 @@ public class DesktopLauncher {
 		config.height = BitBounce.V_HEIGHT;
 		config.width = BitBounce.V_WIDTH;
 		new LwjglApplication(new BitBounce(), config);
+		config.resizable = false;
+
 	}
 }

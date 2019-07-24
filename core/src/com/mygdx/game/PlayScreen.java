@@ -7,10 +7,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.*;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.graphics.Color;
+
 
 import java.awt.*;
 
 public class PlayScreen implements Screen {
+    public static Boolean settingsOn = false;
     final BitBounce game;
     OrthographicCamera camera;
     Viewport port;
@@ -28,10 +33,10 @@ public class PlayScreen implements Screen {
     public int xvel;
     int d;
     private Blocks[] blocks;
-    private static final int BLOCK_SPACING = MathUtils.random(450,500);
+    private static int BLOCK_SPACING = MathUtils.random(450,500);
     //MathUtils.random(200,300);
     private static final int BLOCK_COUNT = 7;
-    private static int HEIGHT_SPACING = 1;
+    private static int HEIGHT_SPACING = 280;
     background bg1;
     background bg2;
     double xvel1;
@@ -62,13 +67,36 @@ public class PlayScreen implements Screen {
     Texture blockImage1;
     Texture blocksW;
     Texture shrek;
+    Texture peppa;
+    Boolean peppaOn;
+    Boolean deathOn;
+    Texture rayman;
+    Boolean rayon;
+    Boolean tabOn;
+    Texture Banjo;
+    Texture forestbg;
+    MenuHUD menuhud;
+    int settingCounter = 0;
+
+
+
+    MainMenuScreen menu;
 
     //constructor
     public PlayScreen(final BitBounce game) {
+//        if (MainMenuScreen.easy){
+//            HEIGHT_SPACING = 200;
+//        }
+//        if (MainMenuScreen.medium){
+//            HEIGHT_SPACING = 280;
+//        }
+//        if (MainMenuScreen.hard){
+//            HEIGHT_SPACING = 300;
+//        }
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, BitBounce.V_WIDTH, BitBounce.V_HEIGHT);
-        port = new FitViewport(BitBounce.V_WIDTH, BitBounce.V_HEIGHT, camera);
+        port = new ExtendViewport(BitBounce.V_WIDTH, BitBounce.V_HEIGHT, camera);
         camera.update();
         hud = new HUD(game.batch);
         //blocks = new Array<Rectangle>();
@@ -81,6 +109,7 @@ public class PlayScreen implements Screen {
         model.height = 120;
         model.width = 60;
         blueImage1 = new Texture(Gdx.files.internal("clouds4.png"));
+        forestbg = new Texture(Gdx.files.internal("forests.png"));
         blue = new Rectangle();
         blue.x = 0;
         blue.y = 0;
@@ -98,6 +127,15 @@ public class PlayScreen implements Screen {
         backgroundw = new Texture(Gdx.files.internal("art (2).png"));
         blockImage1 = new Texture(Gdx.files.internal("art (1).png"));
         shrek = new Texture(Gdx.files.internal("shrek.png"));
+        peppa = new Texture(Gdx.files.internal("peppa.png"));
+        rayman = new Texture(Gdx.files.internal("rayman.png"));
+        Banjo = new Texture(Gdx.files.internal("Banjo.png"));
+        peppaOn = false;
+        deathOn = false;
+        rayon = false;
+        tabOn = false;
+        menuhud = new MenuHUD(game.batch);
+
 
         xvel1 = -2.5;
         readyToStart = true;
@@ -147,7 +185,7 @@ public class PlayScreen implements Screen {
         //blocks[0].y = 70;
 
         //used to log high scores and log it into preferences:
-        instructionsImage = new Texture(Gdx.files.internal("instructions.png"));
+        instructionsImage = new Texture(Gdx.files.internal("Instructions.png"));
         if (!prefs.contains("highScore")) {
             prefs.putInteger("highScore", 0);
         }
@@ -178,64 +216,165 @@ public class PlayScreen implements Screen {
         game.batch.begin();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 
+
+
+
+
+
+
+
         //Renders a text box
-        dounter ++;
-        if (dounter ==1) {
+        dounter++;
+        if (dounter == 1) {
             password1.render();
         }
+//        if (!MainMenuScreen.muteOn){
+//            if (dead) {
+//                music.stop();
+//            } else if (pause1.gamePause){
+//                music.pause();
+//            } else {
+//                music.play();
+//            }
+//        } else if (MainMenuScreen.muteOn){
+//            music.stop();
+//        }
+//        if (!dead){
+//            if (!MainMenuScreen.muteOn){
+//                music.play();
+//            }
+//        } else {
+//            music.stop();
+//        }
+//
+//        if (!MainMenuScreen.muteOn){
+//            if (pause1.gamePause){
+//                music.pause();
+//            } else if (!dead){
+//                music.play();
+//            } else {
+//                music.stop();
+//            }
+//        }
+//        if (pause1.gamePause){
+//            music.pause();
+//        } else if (!dead){
+//            if (!MainMenuScreen.muteOn){
+//                music.play();
+//            }
+//        } else {
+//            music.stop();
+//        }
+
         password1.input(password1.text);
 
         //Allows for different character models with right password or if "right" button is pushed
-        if (! pause1.gamePause) {
+        if (!pause1.gamePause) {
             //if (password2.answerGiven) {
                 if (password1.awesomeLevel) {
-                    //System.out.println("yeetyeet");
+                    hud.scoreLabel.setColor(Color.GRAY);
+                    hud.settingLabel.setColor(Color.GRAY);
+                    hud.marioLabel.setColor(Color.GRAY);
                     sprites.texture = sprite2Image;
                     // bgmusic1 = Gdx.audio.newMusic(Gdx.files.internal("8bitmusic.mp3"));
                     sprites.width = 120;
                     sprites.height = 235;
-                    bg1.blueImage = backgroundw;
-                    bg2.blueImage = backgroundw;
+                    bg1.texture = backgroundw;
+                    bg2.texture = backgroundw;
                     bg1.width = 1809;
                     bg2.width = 1809;
-                    for (int i = 0; i<blocks.length; i++) {
+                    for (int i = 0; i < blocks.length; i++) {
                         blocks[i].texture = blocksW;
                     }
 
                 }
                 if (Bounter % 3 == 1) {
                     if (!password1.awesomeLevel) {
-                        sprites.texture = marioImage;
-                        //  bgmusic1 = Gdx.audio.newMusic(Gdx.files.internal("8bitmusic.mp3"));
-                        sprites.width = 120;
-                        sprites.height = 227;
+                        if (!peppaOn) {
+                            if (!deathOn) {
+                                if (!tabOn) {
+                                    sprites.texture = marioImage;
+                                    //  bgmusic1 = Gdx.audio.newMusic(Gdx.files.internal("8bitmusic.mp3"));
+                                    sprites.width = 120;
+                                    sprites.height = 227;
+                                }
+                            }
+                        }
                     }
                 }
                 if (Bounter % 3 == 0) {
                     if (!password1.awesomeLevel) {
-                        //if (Bounter % 2 == 0) {
-                        sprites.texture = kaoopa;
-                        sprites.width = 170;
-                        sprites.height = 200;
-                        //}
+                        if (!peppaOn) {
+                            if (!deathOn) {
+                                if (!tabOn) {
+                                    //if (Bounter % 2 == 0) {
+                                    sprites.texture = kaoopa;
+                                    sprites.width = 170;
+                                    sprites.height = 200;
+                                }
+                            }
+                        }
                     }
                 }
-                if (Bounter %3 == 2){
-                    if (!password1.awesomeLevel){
-                        sprites.texture = shrek;
-                        sprites.width = 160;
-                        sprites.height = 225;
+
+                if (Bounter % 3 == 2) {
+                    if (!password1.awesomeLevel) {
+                        if (!peppaOn) {
+                            if (!deathOn) {
+                                if (!tabOn) {
+                                    sprites.texture = shrek;
+                                    sprites.width = 160;
+                                    sprites.height = 225;
+                                }
+                            }
+                        }
                     }
                 }
-                if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-                    Bounter++;
+            //}
+            if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                Bounter++;
+            }
+            // }
+        }
+        if (!password1.awesomeLevel) {
+            if (MainMenuScreen.cloudsOn) {
+                bg1.texture = blueImage1;
+                bg2.texture = blueImage1;
+                hud.closeLabel.setColor(Color.GRAY);
+            } else {
+                bg1.texture = forestbg;
+                bg2.texture = forestbg;
+                hud.closeLabel.setColor(Color.WHITE);
+
+            }
+        }
+        if (peppaOn) {
+            sprites.texture = peppa;
+            sprites.height = 225;
+            sprites.width = 175;
+        }
+        if (Gdx.input.getX() > 0 && Gdx.input.getX() < 100 && (BitBounce.V_HEIGHT - Gdx.input.getY()) > 900 && (BitBounce.V_HEIGHT - Gdx.input.getY()) < 1000) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
+                if (!password1.awesomeLevel) {
+                    if (!deathOn) {
+                        if (!peppaOn) {
+                            if (!tabOn) {
+                                sprites.texture = Banjo;
+                                sprites.width = 200;
+                                sprites.height = 225;
+                                tabOn = true;
+                            } else {
+                                tabOn = false;
+                            }
+                        }
+                    }
                 }
-           // }
+            }
         }
 
         //creates backgrounds
         game.batch.draw(instructionsImage, 250, 300, 500, 400);
-      game.batch.draw(bg1.blueImage, bg1.x + bg1.width, bg2.y, bg2.width, bg2.height);
+      game.batch.draw(bg1.texture, bg1.x + bg1.width, bg2.y, bg2.width, bg2.height);
         bg1.render(bg1.x, bg1.y, game.batch);
 
         //creates blocks with set values
@@ -256,19 +395,21 @@ public class PlayScreen implements Screen {
             }
             //  bg3.update();
             //}
-            music.play();
-            if (!dead) {
-                if (!pause1.gamePause) {
-                    if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-                        if (readyToStart) {
-                            counter++;
-                            if (counter == 2) {
-                                sprites.readytoBegin = true;
+                if (!dead) {
+                    if (!pause1.gamePause) {
+                        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                            if (!settingsOn) {
+                                if (readyToStart) {
+                                    counter++;
+                                    if (counter == 2) {
+                                        sprites.readytoBegin = true;
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            }
+
 
             //background respawn:
             if (bg2.x <= -bg2.width) {
@@ -293,7 +434,7 @@ public class PlayScreen implements Screen {
             if (blocks[0].x < -blocks[0].width) {
                 blocks[0].x = blocks[6].x + BLOCK_SPACING;
                 if (blocks[6].y <= BitBounce.V_HEIGHT - blocks[6].height - sprites.height - 20) {
-                    blocks[0].y = MathUtils.random(0, blocks[6].y + 280);
+                    blocks[0].y = MathUtils.random(0, blocks[6].y + HEIGHT_SPACING);
                 } else if (blocks[6].y <= 0) {
                     blocks[0].y += 320;
                 } else {
@@ -306,7 +447,7 @@ public class PlayScreen implements Screen {
                     if (blocks[i].x < -blocks[i].width) {
                         blocks[i].x = blocks[i-1].x + BLOCK_SPACING;
                         if (blocks[i-1].y < BitBounce.V_HEIGHT - blocks[i-1].height - sprites.height - 20) {
-                           blocks[i].y = MathUtils.random(0, blocks[i-1].y + 280);
+                           blocks[i].y = MathUtils.random(0, blocks[i-1].y + HEIGHT_SPACING);
                             //blocks[i].y = blocks[i-1].y += 300;
                         } else if (blocks[i-1].y <= 0) {
                             blocks[i].y += 320;
@@ -330,15 +471,20 @@ public class PlayScreen implements Screen {
             music.stop();
             counter = 0;
         }
+        if (dead){
+            music.stop();
+        }
         if (dead) {
             if (!pause1.gamePause){
             readyToStart = false;
-            if (password1.awesomeLevel){
-                game.batch.draw(pause1.pauseScreen, 250, 400, 500, 200);
-            } else {
-                game.batch.draw(deathImage, 250, 400, 500, 200);
+            if (!settingsOn) {
+                if (password1.awesomeLevel) {
+                    game.batch.draw(pause1.pauseScreen, 250, 400, 500, 200);
+                } else {
+                    game.batch.draw(deathImage, 250, 400, 500, 200);
+                }
+                game.batch.draw(deathTextImage, 250, 250, 500, 400);
             }
-            game.batch.draw( deathTextImage, 250, 250, 500, 400);
             try {
                 highScore = prefs.getInteger("highScore");
             } catch (Exception e){
@@ -355,28 +501,202 @@ public class PlayScreen implements Screen {
                 counter = 1;
                 reset();
                 dead = false;
-
             }
+
             }
         }
 
         //pause screen
         if (pause1.gamePause == true){
-            game.batch.draw(pause1.pauseScreen, pause1.x, pause1.y, pause1.width, pause1.height);
-            game.batch.draw(pause1.pauseText, pause1.x2, pause1.y2, pause1.width2, pause1.height2);
+            if (!MainMenuScreen.muteOn){
+                music.pause();
+            }
+            if (!settingsOn) {
+                game.batch.draw(pause1.pauseScreen, pause1.x, pause1.y, pause1.width, pause1.height);
+                game.batch.draw(pause1.pauseText, pause1.x2, pause1.y2, pause1.width2, pause1.height2);
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+                if (!password1.awesomeLevel) {
+                    if (!deathOn) {
+                        if (!tabOn) {
+                            if (!peppaOn) {
+                                peppaOn = true;
+
+                            } else {
+                                peppaOn = false;
+                                if (deathOn) {
+                                    sprites.texture = rayman;
+                                    sprites.width = 200;
+                                } else if (tabOn) {
+                                    sprites.texture = sprite2Image;
+                                } else{
+                                    if (Bounter%3 == 1){
+                                        sprites.texture = marioImage;
+                                        sprites.width = 120;
+                                        sprites.height = 227;
+                                    } else if (Bounter%3 == 0){
+                                        sprites.texture = kaoopa;
+                                        sprites.width = 170;
+                                        sprites.height = 200;
+                                    } else {
+                                        sprites.texture = shrek;
+                                        sprites.width = 160;
+                                        sprites.height = 225;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+        if (dead){
+            if (Gdx.input.isKeyJustPressed(Input.Keys.F)){
+                if (!password1.awesomeLevel) {
+                    //if (peppaOn == false) {
+                    if (!peppaOn) {
+                        if (!tabOn) {
+                            if (!deathOn) {
+                                rayon = true;
+                                deathOn = true;
+                                sprites.texture = rayman;
+                                sprites.width = 200;
+                            } else if (tabOn) {
+                                sprites.texture = sprite2Image;
+                                deathOn = false;
+                            } else {
+                                deathOn = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
         //creates score counter from hud class
         keypress = true;
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        if (!settingsOn){
+        } else{
+            if (pause1.gamePause) {
+                game.batch.draw(MainMenuScreen.red, 300, 325, 400, 400);
+            }
+        }
         game.batch.end();
+        if (pause1.gamePause || dead || counter == 1) {
+                if (settingsOn) {
+                    hud.closeStage.draw();
+                    if (Gdx.input.justTouched()) {
+                        if (BitBounce.V_HEIGHT-Gdx.input.getY()>265 && BitBounce.V_HEIGHT-Gdx.input.getY()<305 && Gdx.input.getX()>650 && Gdx.input.getX() <750)
+                        settingsOn = false;
+                        if (MainMenuScreen.diffChange) {
+                            reset();
+                            counter = 1;
+                            pause1.gamePause = false;
+                        }
+                    }
+                } else if (!settingsOn) {
+                    hud.settingStage.draw();
+                    if (Gdx.input.justTouched()){
+                        if ((BitBounce.V_HEIGHT-Gdx.input.getY())>940 && (BitBounce.V_HEIGHT-Gdx.input.getY()<1000) && Gdx.input.getX()>810 && Gdx.input.getX()<1000) {
+                            //System.out.println("no");
+                            MainMenuScreen.diffChange = false;
+                            settingsOn = true;
+                            MainMenuScreen.pageNumber = 1;
+                        }
+                    }
+
+
+
+                }
+        }
+        if (dead){
+            music.stop();
+        } else if (!sprites.readytoBegin){
+            music.stop();
+        } else {
+            if (!MainMenuScreen.muteOn) {
+                if (!pause1.gamePause) {
+                    music.play();
+                } else {
+                    music.pause();
+                }
+            }
+        }
+
+        if (settingsOn){
+            if (pause1.gamePause || dead || counter == 1){
+                MainMenuScreen.yeet(game, MainMenuScreen.Hud2, MainMenuScreen.setHUD, MainMenuScreen.pageNumber, MainMenuScreen.diffChange);
+                if (Gdx.input.justTouched()) {
+                    if ((BitBounce.V_HEIGHT - Gdx.input.getY()) > 500 && (BitBounce.V_HEIGHT - Gdx.input.getY()) < 550 && Gdx.input.getX() < 770 && Gdx.input.getX() > 720) {
+                        MainMenuScreen.pageNumber = 2;
+                    }
+                }
+                if (Gdx.input.justTouched()) {
+                    if ((BitBounce.V_HEIGHT - Gdx.input.getY()) > 500 && (BitBounce.V_HEIGHT - Gdx.input.getY()) < 550 && Gdx.input.getX() < 300 && Gdx.input.getX() > 250) {
+                        MainMenuScreen.pageNumber = 1;
+                    }
+                }
+                game.batch.begin();
+                if (MainMenuScreen.pageNumber == 1){
+                    if (MainMenuScreen.muteOn) {
+                        game.batch.draw(MainMenuScreen.filledBox, 310, 365, 40, 40);
+                    } else {
+                        game.batch.draw(MainMenuScreen.emptybox, 310, 365, 40, 40);
+                    }
+                    if (Gdx.input.justTouched()) {
+                        if (Gdx.input.getX() > 310 && Gdx.input.getX() < 700 && (BitBounce.V_HEIGHT - Gdx.input.getY() > 360) && (BitBounce.V_HEIGHT - Gdx.input.getY() < 400)) {
+                            if (MainMenuScreen.muteOn) {
+                                MainMenuScreen.muteOn = false;
+                            } else {
+                                MainMenuScreen.muteOn = true;
+                            }
+                        }
+                    }
+                }
+                game.batch.end();
+                if (MainMenuScreen.pageNumber == 2) {
+                    if (Gdx.input.getX() > 310 && Gdx.input.getX() < 700 && (BitBounce.V_HEIGHT - Gdx.input.getY() > 410) && (BitBounce.V_HEIGHT - Gdx.input.getY() < 450)) {
+                        if (Gdx.input.justTouched()) {
+                            MainMenuScreen.medium = false;
+                            MainMenuScreen.easy = false;
+                            MainMenuScreen.hard = true;
+                            MainMenuScreen.diffChange = true;
+
+                        }
+                    } else if (Gdx.input.getX() > 310 && Gdx.input.getX() < 700 && (BitBounce.V_HEIGHT - Gdx.input.getY() > 602) && (BitBounce.V_HEIGHT - Gdx.input.getY() < 642)) {
+                        if (Gdx.input.justTouched()) {
+                            MainMenuScreen.medium = false;
+                            MainMenuScreen.easy = true;
+                            MainMenuScreen.hard = false;
+                            MainMenuScreen.diffChange = true;
+                        }
+                    } else if (Gdx.input.getX() > 310 && Gdx.input.getX() < 700 && (BitBounce.V_HEIGHT - Gdx.input.getY() > 505) && (BitBounce.V_HEIGHT - Gdx.input.getY() < 545)) {
+                        if (Gdx.input.justTouched()) {
+                            MainMenuScreen.medium = true;
+                            MainMenuScreen.easy = false;
+                            MainMenuScreen.hard = false;
+                            MainMenuScreen.diffChange = true;
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+
         hud.stage.draw();
         pause1.setPause();
     }
 
     @Override
     public void resize(int width, int height) {
-        port.update(width, height);
+//        width = BitBounce.V_WIDTH;
+//        height = BitBounce.V_HEIGHT;
+//        port.update(width,height);
+//        hud.stage.getViewport().update(width, height, true);
 //        BitBounce.
     }
 
@@ -410,6 +730,7 @@ public class PlayScreen implements Screen {
         pause1.pauseScreen.dispose();
         pause1.pauseText.dispose();
         shrek.dispose();
+        forestbg.dispose();
 
     }
 

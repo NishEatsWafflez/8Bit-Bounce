@@ -21,7 +21,15 @@ public class Blocks extends blockEntity {
 
     //moves blocks at set speed
     public void update() {
-        xvel = -9;
+        if (MainMenuScreen.hard){
+            xvel = -11;
+        }
+        if (MainMenuScreen.medium) {
+            xvel = -10;
+        }
+        if (MainMenuScreen.easy){
+            xvel = -9;
+        }
         this.x += xvel;
     }
 

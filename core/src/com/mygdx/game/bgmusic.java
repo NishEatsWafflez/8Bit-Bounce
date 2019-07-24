@@ -19,6 +19,11 @@ public class bgmusic {
 
     //music stop method
     public void stop(){
+        bitmusic.stop();
+    }
+
+    public void pause(){
         bitmusic.pause();
     }
+
 }

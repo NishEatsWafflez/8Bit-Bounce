@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class background {
-    Texture blueImage;
+    Texture texture;
     public int  width;
     public int  height;
     public static long x;
@@ -14,12 +14,12 @@ public class background {
 
 
     //constructor
-    public background (long x, int y, int width, int height, Texture blueImage){
+    public background (long x, int y, int width, int height, Texture texture){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.blueImage = blueImage;
+        this.texture = texture;
         //blueImage = new Texture("clouds4.png");
         xvel = -2.5;
         //x = 0;
@@ -35,6 +35,6 @@ public class background {
 
     //render background
     public void render(long x, long y, SpriteBatch batch){
-        batch.draw(blueImage, this.x, y, width, height);
+        batch.draw(texture, this.x, y, width, height);
     }
 }

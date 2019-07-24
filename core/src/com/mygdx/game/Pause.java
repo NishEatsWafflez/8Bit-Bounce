@@ -49,12 +49,14 @@ public class Pause{
     //enables and disables pause screen
     public void setPause () {
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)){
-            System.out.println("yeet");
             //pauseCounter++;
             if (!gamePause){
                 gamePause = true;
+                MainMenuScreen.pageNumber = 1;
             } else {
-                gamePause = false;
+                if (!PlayScreen.settingsOn) {
+                    gamePause = false;
+                }
             }
 
         }

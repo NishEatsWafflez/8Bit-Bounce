@@ -36,7 +36,7 @@ public class Sprites extends blockEntity {
             if (!pointState) {
                 if (readytoBegin) {
                     points++;
-                    System.out.println(points);
+//                    System.out.println(points);
                 }
             }
             pointState = true;
@@ -59,7 +59,15 @@ public class Sprites extends blockEntity {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             if (jumpCount == 0) {
                 if (yvel==0) {
-                    yvel = 25;
+                    if (MainMenuScreen.easy) {
+                        yvel = 25;
+                    }
+                    if (MainMenuScreen.medium){
+                        yvel = 23;
+                    }
+                    if (MainMenuScreen.hard){
+                        yvel = 22;
+                    }
                     jumpCount++;
                 }
             }

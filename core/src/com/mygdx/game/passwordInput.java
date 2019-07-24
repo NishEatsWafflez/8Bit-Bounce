@@ -8,7 +8,7 @@ import javafx.stage.Screen;
 public class passwordInput implements Input.TextInputListener {
     String text;
     String trying;
-    public Boolean awesomeLevel;
+    static public Boolean awesomeLevel;
     public Boolean gameStart = false;
 
     //creates input listener
