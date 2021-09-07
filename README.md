@@ -3,10 +3,14 @@ An Endless Jumper, Enter the right code for a hidden feature, other hidden chara
 
 This is an Endless Jumping Game with an 8bit theme. If you enter the right code at the beginning, you can access a hidden level with some special designs
 
-v0.2: Added a New Character and Implemented Dispose Functions (being dumb)
+v 1.0.2: Added Dispose Commands (Being Dumb again), Cleaned Up Page Selection
 
-v0.1: Initial Commit
+v 1.0.1: Added 3 new hidden characters, 
 
-DOWNLOAD LINK (v0.2):
+v 0.1.1: Added a New Character and Implemented Dispose Functions (being dumb)
 
-https://www.dropbox.com/s/x8xjbnke6mxnljx/8Bit-Bouncev2.jar?dl=0
+v 0.0.1: Initial Commit
+
+DOWNLOAD LINK (v 1.0.2):
+
+https://www.dropbox.com/s/ydptp5f9ognz6le/8-BitBouncev1.0.1.jar?dl=0
