@@ -9,6 +9,7 @@ public class passwordInput implements Input.TextInputListener {
     String text;
     String trying;
     static public Boolean awesomeLevel;
+    static public Boolean ralphLevel;
     public Boolean gameStart = false;
 
     //creates input listener
@@ -20,6 +21,11 @@ public class passwordInput implements Input.TextInputListener {
             if (text.contains("waluigi") || text.contains("Waluigi")){
                 //System.out.println("yeet");
                 awesomeLevel = true;
+                gameStart = true;
+                //System.out.println(awesomeLevel);
+            }else if (text.contains("ralph") || text.contains("Ralph")){
+                //System.out.println("yeet");
+                ralphLevel = true;
                 gameStart = true;
                 //System.out.println(awesomeLevel);
             } else if (text == null){
@@ -40,6 +46,7 @@ public class passwordInput implements Input.TextInputListener {
 
     public passwordInput() {
         awesomeLevel = false;
+        ralphLevel = false;
     }
 
     //makes text box

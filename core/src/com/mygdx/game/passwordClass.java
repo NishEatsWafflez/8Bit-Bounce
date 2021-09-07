@@ -60,6 +60,9 @@ public class passwordClass implements Screen {
         if (password1.awesomeLevel == true){
             game.setScreen(new PlayScreen(game));
         }
+        if (password1.ralphLevel == true){
+            game.setScreen(new PlayScreen(game));
+        }
         if (password1.gameStart){
             game.setScreen(new PlayScreen(game));
         }

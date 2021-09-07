@@ -75,7 +75,9 @@ public class PlayScreen implements Screen {
     Boolean tabOn;
     Texture Banjo;
     Texture forestbg;
+    Texture backgroundR;
     MenuHUD menuhud;
+    Texture ralphyboy;
     int settingCounter = 0;
 
 
@@ -125,9 +127,11 @@ public class PlayScreen implements Screen {
         password2 = new passwordClass(game);
         dounter = 0;
         backgroundw = new Texture(Gdx.files.internal("art (2).png"));
+        backgroundR = new Texture(Gdx.files.internal("fixitfelixbg.png"));
         blockImage1 = new Texture(Gdx.files.internal("art (1).png"));
         shrek = new Texture(Gdx.files.internal("shrek.png"));
         peppa = new Texture(Gdx.files.internal("peppa.png"));
+        ralphyboy = new Texture(Gdx.files.internal("ralphy.png"));
         rayman = new Texture(Gdx.files.internal("rayman.png"));
         Banjo = new Texture(Gdx.files.internal("Banjo.png"));
         peppaOn = false;
@@ -288,8 +292,25 @@ public class PlayScreen implements Screen {
                     }
 
                 }
+                if (password1.ralphLevel) {
+                    hud.scoreLabel.setColor(Color.GRAY);
+                    hud.settingLabel.setColor(Color.GRAY);
+                    hud.marioLabel.setColor(Color.GRAY);
+                    sprites.texture = ralphyboy;
+                // bgmusic1 = Gdx.audio.newMusic(Gdx.files.internal("8bitmusic.mp3"));
+                    sprites.width = 195;
+                    sprites.height = 235;
+                    bg1.texture = backgroundR;
+                    bg2.texture = backgroundR;
+                    bg1.width = 1809;
+                    bg2.width = 1809;
+                    for (int i = 0; i < blocks.length; i++) {
+                        blocks[i].texture = blockImage1;
+                    }
+
+                }
                 if (Bounter % 3 == 1) {
-                    if (!password1.awesomeLevel) {
+                    if (!password1.awesomeLevel && !password1.ralphLevel) {
                         if (!peppaOn) {
                             if (!deathOn) {
                                 if (!tabOn) {
@@ -303,7 +324,7 @@ public class PlayScreen implements Screen {
                     }
                 }
                 if (Bounter % 3 == 0) {
-                    if (!password1.awesomeLevel) {
+                    if (!password1.awesomeLevel && !password1.ralphLevel) {
                         if (!peppaOn) {
                             if (!deathOn) {
                                 if (!tabOn) {
@@ -318,7 +339,7 @@ public class PlayScreen implements Screen {
                 }
 
                 if (Bounter % 3 == 2) {
-                    if (!password1.awesomeLevel) {
+                    if (!password1.awesomeLevel && !password1.ralphLevel) {
                         if (!peppaOn) {
                             if (!deathOn) {
                                 if (!tabOn) {
@@ -336,7 +357,7 @@ public class PlayScreen implements Screen {
             }
             // }
         }
-        if (!password1.awesomeLevel) {
+        if (!password1.awesomeLevel && !password1.ralphLevel) {
             if (MainMenuScreen.cloudsOn) {
                 bg1.texture = blueImage1;
                 bg2.texture = blueImage1;
@@ -355,7 +376,7 @@ public class PlayScreen implements Screen {
         }
         if (Gdx.input.getX() > 0 && Gdx.input.getX() < 100 && (BitBounce.V_HEIGHT - Gdx.input.getY()) > 900 && (BitBounce.V_HEIGHT - Gdx.input.getY()) < 1000) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
-                if (!password1.awesomeLevel) {
+                if (!password1.awesomeLevel && !password1.ralphLevel) {
                     if (!deathOn) {
                         if (!peppaOn) {
                             if (!tabOn) {
@@ -516,7 +537,7 @@ public class PlayScreen implements Screen {
                 game.batch.draw(pause1.pauseText, pause1.x2, pause1.y2, pause1.width2, pause1.height2);
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-                if (!password1.awesomeLevel) {
+                if (!password1.awesomeLevel && !password1.ralphLevel) {
                     if (!deathOn) {
                         if (!tabOn) {
                             if (!peppaOn) {
@@ -552,7 +573,7 @@ public class PlayScreen implements Screen {
         }
         if (dead){
             if (Gdx.input.isKeyJustPressed(Input.Keys.F)){
-                if (!password1.awesomeLevel) {
+                if (!password1.awesomeLevel && !password1.ralphLevel) {
                     //if (peppaOn == false) {
                     if (!peppaOn) {
                         if (!tabOn) {
