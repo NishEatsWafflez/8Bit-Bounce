@@ -19,9 +19,11 @@ public class MenuHUD {
     private Viewport viewport;
     Label settingsLabel;
     Label startLabel;
+    Label creditsLabel;
     private BitmapFont font1;
     public Boolean nextScreen;
     public Boolean settings;
+    public Boolean credits;
     int counter = 0;
    // public  static Boolean cloudsOn;
 
@@ -34,9 +36,11 @@ public class MenuHUD {
         font1 = new BitmapFont(Gdx.files.internal("font1.fnt"));
         settingsLabel = new Label("SETTINGS", new Label.LabelStyle(font1, Color.WHITE));
         startLabel = new Label("START", new Label.LabelStyle(font1, Color.WHITE));
+        creditsLabel = new Label("CREDITS", new Label.LabelStyle(font1, Color.WHITE));
 
         settingsLabel.setFontScale(1.5f);
         startLabel.setFontScale(1.5f);
+        creditsLabel.setFontScale(1.5f);
 
         Table displayTable = new Table();
         displayTable.center();
@@ -44,12 +48,15 @@ public class MenuHUD {
 
         displayTable.add(startLabel);
         displayTable.row();
-        displayTable.add(settingsLabel).padTop(120);
+        displayTable.add(settingsLabel).padTop(60);
+        displayTable.row();
+        displayTable.add(creditsLabel).padTop(60);
 
         stage.addActor(displayTable);
 
         nextScreen = false;
         settings = false;
+        credits = false;
 
     }
 
@@ -65,7 +72,7 @@ public class MenuHUD {
         } else{
             startLabel.setFontScale(1.5f);
         }
-        if (Gdx.input.getX()> 420 && Gdx.input.getX()< 580 && (BitBounce.V_HEIGHT-Gdx.input.getY())> 350 && (BitBounce.V_HEIGHT-Gdx.input.getY())<450){
+        if (Gdx.input.getX()> 420 && Gdx.input.getX()< 580 && (BitBounce.V_HEIGHT-Gdx.input.getY())> 450 && (BitBounce.V_HEIGHT-Gdx.input.getY())<550){
             settingsLabel.setFontScale(2.5f);
 
             if (Gdx.input.isTouched()){
@@ -75,6 +82,17 @@ public class MenuHUD {
             }
         } else {
             settingsLabel.setFontScale(1.5f);
+        }
+        if (Gdx.input.getX()> 420 && Gdx.input.getX()< 580 && (BitBounce.V_HEIGHT-Gdx.input.getY())> 350 && (BitBounce.V_HEIGHT-Gdx.input.getY())<450){
+            creditsLabel.setFontScale(2.5f);
+
+            if (Gdx.input.isTouched()){
+                credits = true;
+//                MainMenuScreen.screen1 = true;
+//                MainMenuScreen.screen2 = false;
+            }
+        } else {
+            creditsLabel.setFontScale(1.5f);
         }
 
     }

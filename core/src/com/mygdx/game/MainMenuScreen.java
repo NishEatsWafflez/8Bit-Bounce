@@ -18,6 +18,7 @@ public class MainMenuScreen implements Screen{
     public static Texture red;
     static bgHUD Hud2;
     static bg2HUD setHUD;
+    static creditsHUD credHUD;
     public static Boolean screen1 = true;
     public static Boolean screen2 = false;
     public static Boolean screen3 = false;
@@ -42,6 +43,7 @@ public class MainMenuScreen implements Screen{
         close = new Texture(Gdx.files.internal("Close.png"));
         hud = new MenuHUD(game.batch);
         Hud2 = new bgHUD(game.batch);
+        credHUD = new creditsHUD((game.batch));
         setHUD = new bg2HUD(game.batch);
         red = new Texture(Gdx.files.internal("redBlock.png"));
 
@@ -95,7 +97,25 @@ public class MainMenuScreen implements Screen{
                 }
             }
         }
+        if (hud.credits) {
+            if (Gdx.input.isTouched()){
+                if (Gdx.input.getX() > 650 && Gdx.input.getX() < 750 && (BitBounce.V_HEIGHT-Gdx.input.getY())>265 && (BitBounce.V_HEIGHT-Gdx.input.getY()) < 300){
+                    hud.credits = false;
+                }
+            }
 
+
+        }
+
+        if (hud.credits) {
+            game.batch.draw(close, 600, 265, 150, 35);
+            game.batch.draw(red, 300, 325, 400, 400);
+
+
+
+
+
+            }
         if (hud.settings) {
             game.batch.draw(close, 600, 265, 150, 35);
             game.batch.draw(red, 300, 325, 400, 400);
@@ -136,6 +156,7 @@ public class MainMenuScreen implements Screen{
                 if (Gdx.input.justTouched()) {
                     if ((BitBounce.V_HEIGHT - Gdx.input.getY()) > 500 && (BitBounce.V_HEIGHT - Gdx.input.getY()) < 550 && Gdx.input.getX() < 770 && Gdx.input.getX() > 720) {
                         pageNumber = 2;
+
                     }
                 }
             }
@@ -191,20 +212,23 @@ public class MainMenuScreen implements Screen{
             //game.batch.draw(settings, 425, 500, 150, 35);
         }
         game.batch.end();
-        if (!hud.settings) {
+        if (!hud.settings && !hud.credits) {
             hud.stage.draw();
         }
         if (hud.settings){
-            if (screen1){
+            if (pageNumber == 1){
                 Hud2.stage.draw();
             }
-            if (screen2){
+            if (pageNumber == 2){
                 setHUD.stage.draw();
             }
         }
         if (!hud.settings) {
                 hud.update();
 
+        }
+        if (hud.credits){
+            credHUD.stage.draw();
         }
 
         if (hud.nextScreen) {
