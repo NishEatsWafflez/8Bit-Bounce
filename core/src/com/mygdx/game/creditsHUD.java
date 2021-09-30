@@ -17,8 +17,6 @@ public class creditsHUD {
     Label creditsLabel;
     Label plugLabel;
     Label titleBG;
-    Label titleMute;
-    Label mute;
     private BitmapFont font1;
     public Boolean nextScreen;
     public Boolean settings;
@@ -41,9 +39,7 @@ public class creditsHUD {
 
         plugLabel = new Label("Find her at twitch.tv/tea_rese or on twitter.com/tea_rese", new Label.LabelStyle(font1, Color.WHITE));
         plugLabel.setWrap(true);
-        titleBG = new Label("Background", new Label.LabelStyle(font1, Color.WHITE));
-        titleMute = new Label("Sound", new Label.LabelStyle(font1, Color.WHITE));
-        mute = new Label("Mute", new Label.LabelStyle(font1, Color.WHITE));
+        titleBG = new Label("Credits", new Label.LabelStyle(font1, Color.WHITE));
 
 
         viewport = new FitViewport(BitBounce.V_WIDTH, BitBounce.V_HEIGHT, new OrthographicCamera());
@@ -52,8 +48,6 @@ public class creditsHUD {
         creditsLabel.setFontScale(1.5f);
         plugLabel.setFontScale(1.5f);
         titleBG.setFontScale(2.75f);
-        titleMute.setFontScale(2.75f);
-        mute.setFontScale(2f);
 
         Table displayTable1 = new Table();
         displayTable1.center();
